@@ -13,9 +13,9 @@
 <li> Change Password (old, new) </li>
 <li> Admin Panel Support </li>
 <li> Managing existing users (using pagination) </li>
-<li> Search users (by name) </li>
-<li> View user details </li>
-<li> Delete users </li>
-<li> Send Notification to users (to their registered email) </li>
+<li> Search users (by name only for admins) </li>
+<li> View user details (only for admins) </li>
+<li> Delete users (only for admins) </li>
+<li> Send Notification to users (to their registered email, only for admins) </li>
 <li> Payment gateway integration (Razorpay) </li>
 </ul>
