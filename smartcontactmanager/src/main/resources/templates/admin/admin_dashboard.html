@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www/thymeleaf.org"
+	th:replace="admin/base::layout(~{::section})">
+<head>
+<meta charset="UTF-8" />
+<title>Admin Dashboard</title>
+</head>
+<body>
+	<section>
+		<!-- <div th:if="${session.message}"
+			class="alert alert-dismissible fade show"
+			th:classappend="${session.message.type}" role="alert">
+			<span th:text="${session.message.content}"></span>
+			<button type="button" class="close" data-dismiss="alert"
+				aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+			<th:block th:text="${@sessionHelper.removeMessageFromSession()}"></th:block>
+		</div> -->
+		<div class="card mr-3 ml-3">
+			<div class="card-body mt-5 mb-5">
+				<div th:if="${session.message}"
+					class="alert alert-dismissible fade show"
+					th:classappend="${session.message.type}" role="alert">
+					<span th:text="${session.message.content}"></span>
+					<button type="button" class="close" data-dismiss="alert"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<th:block th:text="${@sessionHelper.removeMessageFromSession()}"></th:block>
+				</div>
+				<h1>
+					Welcome <span th:text=${user.name}></span>
+				</h1>
+
+				<!-- Search bar  -->
+
+				<div class="search-container my-4">
+					<input onkeyup="searchForUser()" id="search-input" type="text"
+						class="form-control" placeholder="Search users..." />
+					<div class="search-result"></div>
+				</div>
+
+				<div class="table-responsive">
+					<table class="table table-hover mt-3">
+						<thead class="thead-dark">
+							<tr>
+								<th scope="col">#ID</th>
+								<th scope="col">Name</th>
+								<th scope="col">Email</th>
+								<th scope="col">Validated</th>
+								<th scope="col">Action</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="u : ${users}">
+								<th th:if="${u.role == 'ROLE_USER'}" th:text="${'USER_' + u.id}"
+									class="email_field">1</th>
+								<th th:if="${u.role == 'ROLE_ADMIN'}"
+									th:text="${'ADMIN_' + u.id}" class="email_field">1</th>
+								<td><img class="profile_picture"
+									th:src="@{'/img/' + ${u.imageUrl}}" alt="profile picture" /> <span
+									th:text="${u.name}" class="name_field"></span></td>
+								<td><a th:href="@{'/admin/user-profile/' + ${u.id}}"> <span
+										class="email_field" th:text="${u.email}"></span>
+								</a></td>
+								<td>
+									<h4 th:if="${u.validated == 1}" style="color: green;">Yes</h4>
+									<h4 th:if="${u.validated == 0}"
+										style="color: red; font-weight: bold;">No</h4>
+								</td>
+								<td th:if="${u.role == 'ROLE_USER'}">
+									<button class="btn btn-sm btn-danger mt-2 mb-2 p-2"
+										style="width: 50px; height: 42px;">
+										<a href="#" th:onclick="|deleteUser(${u.id})|"><i
+											class="fa-solid fa-trash fa-2x text-white"></i></a>
+									</button>
+								</td>
+								<td th:if="${u.role == 'ROLE_ADMIN'}">
+									<button class="btn btn-sm btn-primary mt-2 mb-2 p-2"
+										style="width: 50px; height: 42px;">
+										<a href="#"><i
+											class="fa-solid fa-user-lock fa-2x text-white"></i></a>
+									</button>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				 <nav aria-label="Page navigation example">
+					<ul class="pagination">
+						<li th:if="${currentPage != 0}" class="page-item"><a
+							class="page-link"
+							th:href="@{'/admin/dashboard/' + ${currentPage - 1}}">Previous</a></li>
+						<li class="page-item"
+							th:classappend="${currentPage == i-1 ? 'active' : ''}"
+							th:each="i : ${#numbers.sequence(1, totalPages)}"><a
+							class="page-link" th:href="@{'/admin/dashboard/' + ${i-1}}"><span
+								th:text="${i}"></span></a></li>
+						<li th:if="${currentPage + 1 != totalPages}" class="page-item"><a
+							class="page-link"
+							th:href="@{'/admin/dashboard/' + ${currentPage + 1}}">Next</a></li>
+					</ul>
+				</nav> 
+			</div>
+		</div>
+	</section>
+</body>
+</html>
