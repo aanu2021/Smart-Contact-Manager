@@ -358,7 +358,7 @@ public class UserController {
 		int amt = Integer.parseInt(data.get("amount").toString());
 		System.out.println("Amount is : " + amt);
 		
-		RazorpayClient razorpayClient = new RazorpayClient("RZP_KEY_ID", "RZP_KEY_SECRET");
+		RazorpayClient razorpayClient = new RazorpayClient("rzp_test_aioxHHMyOq8spx", "xFrh0TgszYONkcv5vWZbSyUP");
 		
 		JSONObject options = new JSONObject();
 		options.put("amount",amt*100);

@@ -93,7 +93,7 @@ const paymentStart = () => {
 			console.log(response);
 			if (response.status === 'created') {
 				let options = {
-					key: 'RZP_KEY_ID',
+					key: 'rzp_test_aioxHHMyOq8spx',
 					amount: response.amount,
 					currency: 'INR',
 					name: 'Smart Contact Manager',
